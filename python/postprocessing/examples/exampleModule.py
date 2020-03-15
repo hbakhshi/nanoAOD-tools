@@ -13,6 +13,9 @@ class exampleProducer(Module):
     def endJob(self):
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
+        outputFile.cd()
+        self.hTotalEvents = ROOT.TH1F( "hTotalNEvents" , "" , 1 , 0 , 2 );
+        
         self.out = wrappedOutputTree
         self.out.branch("EventMass",  "F");
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):

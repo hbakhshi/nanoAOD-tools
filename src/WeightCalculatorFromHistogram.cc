@@ -1,4 +1,4 @@
-#include "PhysicsTools/NanoAODTools/interface/WeightCalculatorFromHistogram.h"
+#include "../interface/WeightCalculatorFromHistogram.h"
 
 WeightCalculatorFromHistogram::WeightCalculatorFromHistogram(TH1 *hist, TH1* targethist, bool norm, bool fixLargeWeights, bool verbose) {
   norm_ = norm;

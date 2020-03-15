@@ -55,6 +55,23 @@ if __name__ == "__main__":
     if options.branchsel!=None:
         options.branchsel_in = options.branchsel
         options.branchsel_out = options.branchsel
+
+    l = {'outdir':outdir,"2nd":args,
+         "cut":options.cut,
+         "branchsel": options.branchsel_in,
+         "modules": modules,
+         "compression": options.compression,
+         "friend": options.friend,
+         "postfix": options.postfix,
+         "jsonInput": options.json,
+         "noOut": options.noOut,
+         "justcount": options.justcount,
+         "prefetch": options.prefetch,
+         "longTermCache": options.longTermCache,
+         "maxEntries": options.maxEntries,
+         "firstEntry": options.firstEntry,
+         "outputbranchsel": options.branchsel_out }
+    print(l) 
     p=PostProcessor(outdir,args,
             cut = options.cut,
             branchsel = options.branchsel_in,

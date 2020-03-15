@@ -1,0 +1,4 @@
+#Run on Data
+python scripts/nano_postproc.py . SinglePhoton_F805581D-60A3-AF44-A7F6-5D6CD64EE3A2.root -I PhysicsTools.NanoAODTools.postprocessing.vbfgamma.Skimmer Skimmer2016 --branch-selection-output=python/postprocessing/vbfgamma/keep_and_drop.txt
+#Run on MC
+python scripts/nano_postproc.py . GJets_8AD6BAB6-0FFD-7449-A58D-96DAAA1402E5.root -I PhysicsTools.NanoAODTools.postprocessing.vbfgamma.Skimmer Skimmer2016 -I PhysicsTools.NanoAODTools.postprocessing.modules.common.puWeightProducer puAutoWeight_2016 -I PhysicsTools.NanoAODTools.postprocessing.vbfgamma.PhotonSF photonSFFall17V2_2016_Tight,photonSFFall17V2_2017_Tight --branch-selection-output=python/postprocessing/vbfgamma/keep_and_drop.txt
