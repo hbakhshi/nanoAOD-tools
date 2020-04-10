@@ -4,7 +4,8 @@ from CRABClient.UserUtilities import config, getUsernameFromSiteDB
 config = Configuration()
 
 config.section_("General")
-config.General.requestName = 'SMP19005March15'
+config.General.requestName = ''
+config.General.workArea = 'SMP19005April9_2018'
 config.General.transferLogs=True
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
@@ -18,13 +19,13 @@ config.Data.inputDataset = '/GJets_HT-40To100_TuneCUETP8M1_13TeV-madgraphMLM-pyt
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'FileBased'
 #config.Data.splitting = 'EventAwareLumiBased'
-config.Data.unitsPerJob = 2
-config.Data.totalUnits = 10
+config.Data.unitsPerJob = 1
 
-config.Data.outLFNDirBase = '/store/user/hbakhshi/SMP19005/March15'
+config.Data.outLFNDirBase = '/store/user/hbakhshi/SMP19005/April9/'
 config.Data.publication = False
 config.section_("Site")
 config.Site.storageSite = "T2_CH_CERN"
+#config.Site.whitelist = ['T2_DE_DESY', 'T2_US_Caltech' , 'T2_US_MIT' , 'T2_US_Nebraska']
 #config.Site.storageSite = "T2_DE_DESY"
 #config.section_("User")
 #config.User.voGroup = 'dcms'

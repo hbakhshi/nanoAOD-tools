@@ -15,15 +15,15 @@ def GetFileAddress(File):
 class PhotonSF:
     def __init__(self , File , nBranch):
         self.fName = GetFileAddress( File )
-        self.File = ROOT.TFile.Open( self.fName )
-        #self.File.ls()
-        self.Histo = self.File.Get("EGamma_SF2D")
         self.BranchName = nBranch
         pass
     
     def beginJob(self):
+        self.File = ROOT.TFile.Open( self.fName )
+        self.Histo = self.File.Get("EGamma_SF2D")
         pass
     def endJob(self):
+        self.File.Close()
         pass
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         self.out = wrappedOutputTree
@@ -31,7 +31,6 @@ class PhotonSF:
         self.out.branch("VBFGamma_{0}_Uncert".format(self.BranchName) ,  "F" )
         
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
-        self.File.Close()
         pass
     def analyze(self, event):
         if hasattr( event , "VBFGamma_gamma_index" ):
@@ -52,3 +51,4 @@ class PhotonSF:
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed
 photonSFFall17V2_2016_Tight = lambda : PhotonSF( "python/postprocessing/data/photonSF/Fall17V2_2016_Tight_photons.root" , "Fall17V2_2016_Tight_SF" )
 photonSFFall17V2_2017_Tight = lambda : PhotonSF( "python/postprocessing/data/photonSF/Fall17V2_2017_Tight_photons.root" , "Fall17V2_2017_Tight_SF" )
+photonSFFall17V2_2018_Tight = lambda : PhotonSF( "python/postprocessing/data/photonSF/Fall17V2_2018_Tight_photons.root" , "Fall17V2_2018_Tight_SF" )

@@ -12,12 +12,10 @@ class Skimmer(Module):
     def __init__(self , isSignal , isData , era):
         self.isSignal = isSignal
         self.isData = isData
-        self.is2016 = "2016" in era
-        self.is2017 = "2017" in era
-        self.is2018 = "2018" in era
+        self.era = era
         
-        self.PhotonSelector = PhotonSelector()
-        self.JetSelector = JetSelector()
+        self.PhotonSelector = PhotonSelector(era)
+        self.JetSelector = JetSelector(era)
         self.AJJ = AJJEvent()
         
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -51,8 +49,30 @@ class Skimmer(Module):
             wgt = -1
         self.hTotalEvents.Fill(0.5 , wgt)
         evcats = []
-        evcats.append( event.HLT_Photon175 )
-        evcats.append( event.HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF )
+        if self.era==2016:
+            evcats.append( event.HLT_Photon175 )
+            evcats.append( event.HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF )
+        elif self.era==2017:
+            if hasattr( event , 'HLT_Photon200' ):
+                evcats.append( event.HLT_Photon200 )
+            else:
+                evcats.append( -1 )
+
+            if hasattr( event , 'HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3' ):
+                evcats.append( event.HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3 )
+            else:
+                evcats.append( -1 )
+        elif self.era==2018:
+            if hasattr( event , 'HLT_Photon200' ):
+                evcats.append( event.HLT_Photon200 )
+            else:
+                evcats.append( -1 )
+
+            if hasattr( event , 'HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3' ):
+                evcats.append( event.HLT_Photon75_R9Id90_HE10_IsoM_EBOnly_PFJetsMJJ300DEta3 )
+            else:
+                evcats.append( -1 )
+
         self.out.fillBranch( "VBFGamma_evcats" , evcats )
 
         if not evcats[0] and not evcats[1]:
@@ -63,7 +83,7 @@ class Skimmer(Module):
         all_muons = Collection(event, "Muon")
         all_photons = Collection(event, "Photon")
         photons = self.PhotonSelector( all_photons , all_electrons , all_muons )
-        if len(photons)!=1 :
+        if len(photons)==0 :
             return False
         self.hTotalEvents.Fill(2.5 , wgt)
         self.PhotonSelector.FillBranches()
@@ -79,7 +99,7 @@ class Skimmer(Module):
         if not self.JetSelector.Pass :
             return False
         self.hTotalEvents.Fill(4.5 , wgt)
-        
+        self.out.fillBranch( "VBFGamma_wgt" , wgt )
         self.JetSelector.FillBranches()
         self.AJJ.FillBranches( all_photons[ photons[0] ].p4() , self.JetSelector.LeadingJet.p4() , self.JetSelector.SubLeadingJet.p4() )
         return True
@@ -87,4 +107,6 @@ class Skimmer(Module):
 
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed
-Skimmer2016 = lambda : Skimmer(False, True , "2016") 
+Skimmer2016 = lambda : Skimmer(False, True , 2016) 
+Skimmer2017 = lambda : Skimmer(False, True , 2017) 
+Skimmer2018 = lambda : Skimmer(False, True , 2018) 

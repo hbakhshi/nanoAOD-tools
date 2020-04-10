@@ -5,3 +5,8 @@ keep Jet*
 keep HLT_Photon*
 keep VBFGamma_*
 keep puWeight*
+keep GenIsolatedPhoton*
+keep GenPart*
+keep genWeight*
+keep LHEWeight_originalXWGTUP
+keep Generator_weight

@@ -1,5 +1,6 @@
 class JetSelector:
-    def __init__(self):
+    def __init__(self , era):
+        self.era = era
         pass
 
     def __call__(self , jets , selected_objects ):
@@ -60,7 +61,17 @@ class JetSelector:
             if min_dr > dr:
                 min_dr = dr
         loose_puid = bool( jet.puId & 4 ) or jet.pt > 50
-        return pt_cut and eta_cut and min_dr > 0.4 and loose_puid
+        othercuts = True
+        if self.era == 2017:
+            #ECAL noise (2017)
+            if 2.650<abs(jet.eta)<3.139:
+                if jet.chEmEF+jet.neEmEF > 0.55:
+                    othercuts = False
+        if self.era == 2018:
+            #HEM 15/16 issue (2018)
+            if -3.0<jet.eta<-1.3 and -1.57<jet.phi<-0.87:
+                othercuts=False
+        return pt_cut and eta_cut and min_dr > 0.4 and loose_puid and othercuts
 
 
     def FillBranches(self):

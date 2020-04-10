@@ -5,6 +5,10 @@ import sys
 import re
 import PSet
 
+def outFileName():
+   JobNumber=sys.argv[1]
+   return "Skimmed_{0}.root".format(JobNumber)
+
 def inputFiles():
    print "ARGV:",sys.argv
    JobNumber=sys.argv[1]
