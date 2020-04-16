@@ -50,8 +50,15 @@ class Skimmer(Module):
         self.hTotalEvents.Fill(0.5 , wgt)
         evcats = []
         if self.era==2016:
-            evcats.append( event.HLT_Photon175 )
-            evcats.append( event.HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF )
+            if hasattr( event , 'HLT_Photon175' ):
+                evcats.append( event.HLT_Photon175 )
+            else:
+                evcats.append( -1 )
+
+            if hasattr( event , 'HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF' ):
+                evcats.append( event.HLT_Photon75_R9Id90_HE10_Iso40_EBOnly_VBF )
+            else:
+                evcats.append( -1 )
         elif self.era==2017:
             if hasattr( event , 'HLT_Photon200' ):
                 evcats.append( event.HLT_Photon200 )

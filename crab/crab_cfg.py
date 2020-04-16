@@ -5,7 +5,7 @@ config = Configuration()
 
 config.section_("General")
 config.General.requestName = ''
-config.General.workArea = 'SMP19005April9_2018'
+config.General.workArea = ''
 config.General.transferLogs=True
 config.section_("JobType")
 config.JobType.pluginName = 'Analysis'
@@ -21,7 +21,7 @@ config.Data.splitting = 'FileBased'
 #config.Data.splitting = 'EventAwareLumiBased'
 config.Data.unitsPerJob = 1
 
-config.Data.outLFNDirBase = '/store/user/hbakhshi/SMP19005/April9/'
+config.Data.outLFNDirBase = '/store/user/hbakhshi/SMP19005/April13/'
 config.Data.publication = False
 config.section_("Site")
 config.Site.storageSite = "T2_CH_CERN"
